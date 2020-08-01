@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "1070244953230",
+    "firebase_url": "https://theatre-24e94.firebaseio.com",
+    "project_id": "theatre-24e94",
+    "storage_bucket": "theatre-24e94.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1070244953230:android:dea0b3756b22f282519ddf",
+        "android_client_info": {
+          "package_name": "com.example.theatre"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1070244953230-gg4r0sjcvsne8dn73j38m9ffidbne5pr.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.theatre",
+            "certificate_hash": "2c562f274779a325a7b8e9ecb63ccf5885afc171"
+          }
+        },
+        {
+          "client_id": "1070244953230-hrgt8i8eojabpv5b6ro67vjhlbcuetcj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDyzY5-FpAsZOon3_D7I_nA3TvKzMIb7vo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1070244953230-hrgt8i8eojabpv5b6ro67vjhlbcuetcj.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
