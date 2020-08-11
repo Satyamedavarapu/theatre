@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:theatre/providers/visibility_provider.dart';
 import 'package:theatre/screens/authentication/login.dart';
 
 void main() {
@@ -16,8 +18,8 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blueGrey,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: LoginScreen(),
+      home: ChangeNotifierProvider(
+          create: (context) => TextVisibility(), child: LoginScreen()),
     );
   }
-  //For commit purpose
 }

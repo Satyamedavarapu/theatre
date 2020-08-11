@@ -4,22 +4,21 @@ import 'package:theatre/utils/util_colors.dart';
 
 class UtilWidgets {
   Widget gradientButton(
-      {@required String buttonName, @required Function onTap}) {
-    return Padding(
-      padding: const EdgeInsets.all(16.0),
-      child: InkWell(
-        onTap: onTap,
-        child: Container(
-          decoration: BoxDecoration(
-            color: UtilColors.appButton,
-            borderRadius: BorderRadius.circular(30.0),
-          ),
-          height: 46.0,
-          alignment: Alignment.center,
-          child: Text(
-            buttonName,
-            style: UtilColors.buttonText,
-          ),
+      {@required String buttonName,
+      @required Function onTap,
+      TextStyle style}) {
+    return InkWell(
+      onTap: onTap,
+      child: Container(
+        decoration: BoxDecoration(
+          color: UtilColors.appButton,
+          borderRadius: BorderRadius.circular(30.0),
+        ),
+        height: 46.0,
+        alignment: Alignment.center,
+        child: Text(
+          buttonName,
+          style: style,
         ),
       ),
     );
