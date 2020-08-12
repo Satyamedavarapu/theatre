@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:theatre/utils/utilStyles.dart';
 import 'package:theatre/utils/util_colors.dart';
 
 class UtilWidgets {
@@ -21,6 +22,40 @@ class UtilWidgets {
           style: style,
         ),
       ),
+    );
+  }
+
+  Widget buildField({
+    @required String fieldName,
+    @required TextEditingController fieldController,
+    TextInputType textType,
+    bool isObscure,
+    TextInputAction action,
+    Function focus,
+    Function validator,
+  }) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          fieldName,
+          style: UtilStyles.generalText,
+        ),
+        Container(
+          height: 56.0,
+          child: TextFormField(
+            style: UtilStyles.generalText,
+            obscureText: isObscure,
+            keyboardType: textType,
+            textInputAction: action,
+            onFieldSubmitted: focus,
+            validator: validator,
+            decoration: InputDecoration(
+                enabledBorder: UnderlineInputBorder(
+                    borderSide: BorderSide(color: Colors.white))),
+          ),
+        ),
+      ],
     );
   }
 }

@@ -1,29 +1,31 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:theatre/providers/visibility_provider.dart';
-import 'package:theatre/screens/authentication/sign_up.dart';
+import 'package:theatre/screens/authentication/login.dart';
 import 'package:theatre/screens/home/home_screen.dart';
 import 'package:theatre/utils/fade_animation.dart';
 import 'package:theatre/utils/utilStyles.dart';
 import 'package:theatre/utils/util_colors.dart';
 import 'package:theatre/utils/util_widgets.dart';
 
-class LoginScreen extends StatefulWidget {
+class SignUpScreen extends StatefulWidget {
   @override
-  _LoginScreenState createState() => _LoginScreenState();
+  _SignUpScreenState createState() => _SignUpScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _SignUpScreenState extends State<SignUpScreen> {
   UtilWidgets uWids = UtilWidgets();
+  TextEditingController nameController = TextEditingController();
   TextEditingController emailController = TextEditingController();
+  TextEditingController numberController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+  TextEditingController confirmPasswordController = TextEditingController();
+  bool isPassword = false;
+  bool isConfirmPassword = false;
 
   @override
   Widget build(BuildContext context) {
     var height = MediaQuery.of(context).size.height;
     var width = MediaQuery.of(context).size.width;
-    var visibleInfo = Provider.of<TextVisibility>(context, listen: false);
 
     print('Page build');
     return Scaffold(
@@ -58,7 +60,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     1.5,
                     RichText(
                       text: TextSpan(
-                          text: 'Welcome back to ',
+                          text: 'Welcome to ',
                           style: UtilStyles.generalText,
                           children: <TextSpan>[
                             TextSpan(
@@ -69,6 +71,27 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                 ),
               ],
+            ),
+            Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: FadeAnimation(
+                2.0,
+                uWids.buildField(
+                    fieldName: 'UserName',
+                    fieldController: nameController,
+                    textType: TextInputType.text,
+                    isObscure: false,
+                    action: TextInputAction.next,
+                    focus: (val) => FocusScope.of(context).nextFocus(),
+                    validator: (val) {
+                      if (val.isEmpty == true) {
+                        return 'Field cannot be empty';
+                      } else if (val.length <= 3) {
+                        return 'Email should contain more than 3 characters';
+                      } else
+                        return null;
+                    }),
+              ),
             ),
             Padding(
               padding: const EdgeInsets.all(16.0),
@@ -95,12 +118,46 @@ class _LoginScreenState extends State<LoginScreen> {
               padding: const EdgeInsets.all(16.0),
               child: FadeAnimation(
                 2.0,
+                uWids.buildField(
+                    fieldName: 'Contact',
+                    fieldController: numberController,
+                    textType: TextInputType.number,
+                    isObscure: false,
+                    action: TextInputAction.next,
+                    focus: (val) => FocusScope.of(context).nextFocus(),
+                    validator: (val) {
+                      if (val.isEmpty == true) {
+                        return 'Field cannot be empty';
+                      } else if (val.length != 10) {
+                        return 'Email should contain more than 3 characters';
+                      } else
+                        return null;
+                    }),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: FadeAnimation(
+                2.0,
                 buildPasswordField(
                     fieldName: 'Password',
                     controller: passwordController,
                     action: TextInputAction.send,
                     focus: (val) => FocusScope.of(context).nextFocus(),
                     textType: TextInputType.text,
+                    isVisible: isPassword,
+                    icon: IconButton(
+                      icon: Icon(
+                        isPassword ? Icons.visibility : Icons.visibility_off,
+                        color: Colors.white,
+                        size: 18.0,
+                      ),
+                      onPressed: () {
+                        setState(() {
+                          isPassword = !isPassword;
+                        });
+                      },
+                    ),
                     validator: (val) {
                       if (val.isEmpty == true) {
                         return 'Password cannot be empty';
@@ -110,18 +167,39 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.all(8.0),
+              padding: const EdgeInsets.all(16.0),
               child: FadeAnimation(
-                3.0,
-                InkWell(
-                  onTap: () {},
-                  child: Align(
-                      alignment: Alignment.centerRight,
-                      child: Text(
-                        'Forgot Password?',
-                        style: UtilStyles.generalText,
-                      )),
-                ),
+                2.0,
+                buildPasswordField(
+                    fieldName: 'Confirm Password',
+                    controller: confirmPasswordController,
+                    action: TextInputAction.send,
+                    focus: (val) => FocusScope.of(context).nextFocus(),
+                    textType: TextInputType.text,
+                    isVisible: isConfirmPassword,
+                    icon: IconButton(
+                      icon: Icon(
+                        isConfirmPassword
+                            ? Icons.visibility
+                            : Icons.visibility_off,
+                        color: Colors.white,
+                        size: 18.0,
+                      ),
+                      onPressed: () {
+                        setState(() {
+                          isConfirmPassword = !isConfirmPassword;
+                        });
+                      },
+                    ),
+                    validator: (val) {
+                      if (val.isEmpty == true) {
+                        return 'Password cannot be empty';
+                      } else if (passwordController.text !=
+                          confirmPasswordController.text) {
+                        return 'Passwords did not match';
+                      } else
+                        return null;
+                    }),
               ),
             ),
             Padding(
@@ -130,7 +208,7 @@ class _LoginScreenState extends State<LoginScreen> {
               child: FadeAnimation(
                 3.0,
                 uWids.gradientButton(
-                    buttonName: 'Login',
+                    buttonName: 'Sign Up',
                     onTap: pushHome,
                     style: UtilStyles.buttonText),
               ),
@@ -140,11 +218,11 @@ class _LoginScreenState extends State<LoginScreen> {
               child: FadeAnimation(
                 4.0,
                 InkWell(
-                  onTap: pushSignUp,
+                  onTap: pushLogin,
                   child: Align(
                       alignment: Alignment.center,
                       child: Text(
-                        'Don\'t have a ticket? Create one',
+                        'Already have a ticket? Login now',
                         style: UtilStyles.generalText,
                       )),
                 ),
@@ -163,6 +241,8 @@ class _LoginScreenState extends State<LoginScreen> {
     TextInputAction action,
     Function focus,
     Function validator,
+    bool isVisible,
+    IconButton icon,
   }) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -172,49 +252,29 @@ class _LoginScreenState extends State<LoginScreen> {
           style: UtilStyles.generalText,
         ),
         Container(
-          height: 56.0,
-          child: Consumer<TextVisibility>(
-            builder: (context, data, child) {
-              return TextFormField(
-                obscureText: data.isVisible,
-                controller: controller,
-                keyboardType: textType,
-                textInputAction: action,
-                onFieldSubmitted: focus,
-                validator: validator,
-                style: UtilStyles.generalText,
-                decoration: InputDecoration(
-                  suffixIcon: Consumer<TextVisibility>(
-                    builder: (context, data, child) {
-                      return IconButton(
-                        onPressed: () {
-                          data.setDisplayText(!data.isVisible);
-                        },
-                        icon: Icon(
-                          data.isVisible
-                              ? Icons.visibility
-                              : Icons.visibility_off,
-                          color: Colors.white,
-                          size: 18.0,
-                        ),
-                      );
-                    },
-                  ),
-                  labelStyle: UtilStyles.generalText,
-                  enabledBorder: UnderlineInputBorder(
-                      borderSide: BorderSide(color: Colors.white)),
-                ),
-              );
-            },
-          ),
-        ),
+            height: 56.0,
+            child: TextFormField(
+              obscureText: isVisible,
+              controller: controller,
+              keyboardType: textType,
+              textInputAction: action,
+              onFieldSubmitted: focus,
+              validator: validator,
+              style: UtilStyles.generalText,
+              decoration: InputDecoration(
+                suffixIcon: icon,
+                labelStyle: UtilStyles.generalText,
+                enabledBorder: UnderlineInputBorder(
+                    borderSide: BorderSide(color: Colors.white)),
+              ),
+            ))
       ],
     );
   }
 
-  void pushSignUp() {
+  void pushLogin() {
     Navigator.pushReplacement(
-        context, MaterialPageRoute(builder: (context) => SignUpScreen()));
+        context, MaterialPageRoute(builder: (context) => LoginScreen()));
   }
 
   void pushHome() {
