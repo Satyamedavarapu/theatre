@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:theatre/providers/visibility_provider.dart';
 import 'package:theatre/screens/authentication/login.dart';
+import 'package:theatre/utils/util_colors.dart';
 
 void main() {
   runApp(MyApp());
@@ -15,6 +16,7 @@ class MyApp extends StatelessWidget {
       title: 'Theatre',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
+        scaffoldBackgroundColor: UtilColors.appBackground,
         primarySwatch: Colors.blueGrey,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),

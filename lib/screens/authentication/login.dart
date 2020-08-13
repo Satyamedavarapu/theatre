@@ -27,7 +27,6 @@ class _LoginScreenState extends State<LoginScreen> {
 
     print('Page build');
     return Scaffold(
-      backgroundColor: UtilColors.appBackground,
       body: SingleChildScrollView(
         scrollDirection: Axis.vertical,
         child: Column(

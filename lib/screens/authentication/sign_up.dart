@@ -29,7 +29,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
     print('Page build');
     return Scaffold(
-      backgroundColor: UtilColors.appBackground,
       body: SingleChildScrollView(
         scrollDirection: Axis.vertical,
         child: Column(
